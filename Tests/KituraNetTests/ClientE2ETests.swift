@@ -14,6 +14,8 @@
  * limitations under the License.
  **/
 
+#if !os(iOS)
+
 import Foundation
 import Dispatch
 import LoggerAPI
@@ -575,3 +577,5 @@ class ClientE2ETests: KituraNetTest {
         }
     }
 }
+
+#endif

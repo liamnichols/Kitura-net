@@ -187,6 +187,8 @@ class KituraNetTest: XCTestCase {
         }
     }
 
+    #if !os(iOS)
+
     func performRequest(_ method: String, path: String, unixDomainSocketPath: String? = nil, close: Bool=true, callback: @escaping ClientRequest.Callback,
                         headers: [String: String]? = nil, requestModifier: ((ClientRequest) -> Void)? = nil) {
 
@@ -211,6 +213,8 @@ class KituraNetTest: XCTestCase {
         }
         req.end(close: close)
     }
+
+    #endif
 
     func expectation(line: Int, index: Int) -> XCTestExpectation {
         return self.expectation(description: "\(type(of: self)):\(line)[\(index)]")

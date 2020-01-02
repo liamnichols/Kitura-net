@@ -38,6 +38,7 @@ class MonitoringTests: KituraNetTest {
     }
     
     func testStartedFinishedHTTP() {
+        #if !os(iOS)
         let startedExpectation = self.expectation(description: "started")
         let finishedExpectation = self.expectation(description: "finished")
 
@@ -58,14 +59,14 @@ class MonitoringTests: KituraNetTest {
                 })
             }
         }
-        
+
         server.failed { error in
             XCTFail("Server failed to start: \(error)")
         }
-        
+
         do {
             try server.listen(on: self.port, address: nil)
-        
+
             self.waitForExpectations(timeout: 10) { error in
                 server.stop()
                 XCTAssertNil(error);
@@ -76,6 +77,7 @@ class MonitoringTests: KituraNetTest {
             server.stop()
             Monitor.delegate = nil
         }
+        #endif
     }
     
     private class TestMonitor: ServerMonitor {

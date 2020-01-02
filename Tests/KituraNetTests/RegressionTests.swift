@@ -14,6 +14,8 @@
  * limitations under the License.
  **/
 
+#if !os(iOS)
+
 import Foundation
 import Dispatch
 
@@ -360,3 +362,5 @@ class RegressionTests: KituraNetTest {
     }
 
 }
+
+#endif

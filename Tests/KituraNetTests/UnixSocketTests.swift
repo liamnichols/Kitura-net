@@ -54,7 +54,7 @@ class UnixSocketTests: KituraNetTest {
         let temporaryDirectory = "/tmp"
         #else
         var temporaryDirectory: String
-        if #available(OSX 10.12, *) {
+        if #available(OSX 10.12, iOS 10.0, *) {
             temporaryDirectory = FileManager.default.temporaryDirectory.path
         } else {
             temporaryDirectory = "/tmp"
@@ -80,12 +80,14 @@ class UnixSocketTests: KituraNetTest {
     /// to that socket. The TestUnixSocketServerDelegate.handle() function will verify
     /// that the incoming request's socket is a unix socket.
     func testUnixSockets() {
+        #if !os(iOS)
         performServerTest(unixDelegate, unixDomainSocketPath: socketFilePath) { expectation in
             self.performRequest("get", path: "/banana", unixDomainSocketPath: self.socketFilePath, callback: { response in
                 XCTAssertEqual(response?.statusCode, HTTPStatusCode.OK, "Status code wasn't .OK was \(String(describing: response?.statusCode))")
                 expectation.fulfill()
             })
         }
+        #endif
     }
 
     class TestUnixSocketServerDelegate: ServerDelegate {

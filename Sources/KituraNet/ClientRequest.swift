@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+#if !os(iOS)
+
 import LoggerAPI
 import CCurl
 import Socket
@@ -847,3 +849,4 @@ private struct OneTimeInitializations {
     }
 }
 
+#endif

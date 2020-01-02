@@ -14,6 +14,8 @@
  * limitations under the License.
  **/
 
+#if !os(iOS)
+
 import Foundation
 import XCTest
 
@@ -167,3 +169,5 @@ extension ClientRequestTests {
     ]
   }
 }
+
+#endif

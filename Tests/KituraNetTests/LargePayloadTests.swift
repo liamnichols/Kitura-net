@@ -41,6 +41,7 @@ class LargePayloadTests: KituraNetTest {
     private let delegate = TestServerDelegate()
 
     func testLargePosts() {
+        #if !os(iOS)
         performServerTest(delegate, useSSL: false, asyncTasks: { expectation in
             let payload = "[" + contentTypesString + "," + contentTypesString + contentTypesString + "," + contentTypesString + "]"
             self.performRequest("post", path: "/largepost", callback: {response in
@@ -66,9 +67,11 @@ class LargePayloadTests: KituraNetTest {
                 request.write(from: payload)
             }
         })
+        #endif
     }
 
     func testLargeGets() {
+        #if !os(iOS)
         performServerTest(delegate, useSSL: false, asyncTasks: { expectation in
             // This test is NOT using self.performRequest, in order to test an extra signature of HTTP.request
             let request = HTTP.request("http://localhost:\(self.port)/largepost") {response in
@@ -77,6 +80,7 @@ class LargePayloadTests: KituraNetTest {
             }
             request.end()
         })
+        #endif
     }
 
     private class TestServerDelegate : ServerDelegate {
